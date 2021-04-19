@@ -1,5 +1,7 @@
 # sofia_air_quality
 
+[![Python application](https://github.com/shristov1/sofia_air_quality/actions/workflows/python-app.yml/badge.svg)](https://github.com/shristov1/sofia_air_quality/actions/workflows/python-app.yml)
+
 ### Libraries used:
 
 - scikit
