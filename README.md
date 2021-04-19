@@ -21,6 +21,9 @@ I decided to look at the data recorded by sensors.community community and analyz
 - Is there connection between air quality and season and if there is a holiday
 - Is there connection between air quality and weather
 
+### Issues:
+- Would need to spend more time to clean up the regression analysis. 
+
 ### Files in repo
 - visualization_and_data_analysis.ipynb - Jupyter notebook with the main portion of the work
 - download_climate_data.py - this contains functions that help with downloading the data
@@ -32,7 +35,7 @@ I decided to look at the data recorded by sensors.community community and analyz
 2. Air quality is best in the summer (due to no need of heating) and in holidays (because people travel more and are not in the city)
 3. There seems to be a higher correlation between PM10 and PM2.5 particle concentration and humidty rather than temperature.
 
-I will write up the data analysis on Medium.
+More written analysis on Medium: https://shristov9.medium.com/when-is-sofia-breathing-the-worst-air-93e31a28e6ca 
 
 And also I would finish the regression and classification analysis on the data in due time. 
 
