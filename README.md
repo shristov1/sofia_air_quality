@@ -26,7 +26,7 @@ I decided to look at the data recorded by sensors.community community and analyz
 - Is there connection between air quality and weather
 
 ### Issues:
-- Would need to spend more time to clean up the regression analysis. 
+- Would need to spend more time to clean up the regression analysis as it currently fails CI.  
 
 ### Files in repo
 - visualization_and_data_analysis.ipynb - Jupyter notebook with the main portion of the work
