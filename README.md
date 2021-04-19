@@ -2,7 +2,7 @@
 
 [![Python application](https://github.com/shristov1/sofia_air_quality/actions/workflows/python-app.yml/badge.svg)](https://github.com/shristov1/sofia_air_quality/actions/workflows/python-app.yml)
 
-[![Notebook application](https://github.com/shristov1/sofia_air_quality/actions/workflows/Notebook.yml/badge.svg)](https://github.com/shristov1/sofia_air_quality/actions/workflows/Notebook.yml)
+[![autopy-lot](https://github.com/shristov1/sofia_air_quality/actions/workflows/notebook_pyer.yml/badge.svg)](https://github.com/shristov1/sofia_air_quality/actions/workflows/notebook_pyer.yml)
 
 ### Libraries used:
 
