@@ -202,15 +202,15 @@ regr_svm = SVR()
 
 regr.fit(X_train, y_train)
 regr_svm.fit(X_train, y_train)
-today = sc_reg.transform([1, 100, 0, 6, 1])
+
 regr.predict([today])
 
 regr_svm.predict([today])
 
 y_pred_svm = regr_svm.predict(X_test)
 
-# plt.plot(y_test)
-# plt.plot(y_pred_svm)
+plt.plot(y_test)
+plt.plot(y_pred_svm)
 
 df['HighP1'] = df['P1'].apply(is_p1_high)
 
@@ -234,7 +234,7 @@ print(confusion_matrix(y_test,y_pred))
 
 print(classification_report(y_test, y_pred))
 
-
+today = [1, 100, 0, 6, 1]
 classifier.predict_proba([today])
 regr.predict([today])
 
@@ -260,6 +260,6 @@ y_pred_svc = classifier_svc.predict(X_test)
 
 print(classification_report(y_test, y_pred_svc))
 
-classifier_svc.predict(sc.transform[today])
+classifier_svc.predict([today])
 
 
