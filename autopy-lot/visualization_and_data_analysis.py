@@ -190,12 +190,14 @@ from sklearn.preprocessing import StandardScaler
 
 X = df[['temperature', 'humidity', 'IsHoliday', 'WeekDay', 'Season']]
 y = df['P1']
+today = [1, 100, 0, 6, 1]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3)
 
 sc_regr = StandardScaler()
-X_train = sc_regr.fit_transform(sc_regr)
-X_test = sc_regr.transform(sc_regr)
+X_train = sc_regr.fit_transform(X_train)
+X_test = sc_regr.transform(X_test)
+today = sc_regr.transform([today])
 
 regr = RandomForestRegressor()
 regr_svm = SVR()
@@ -203,14 +205,14 @@ regr_svm = SVR()
 regr.fit(X_train, y_train)
 regr_svm.fit(X_train, y_train)
 
-regr.predict([today])
+regr.predict(today)
 
-regr_svm.predict([today])
+regr_svm.predict(today)
 
 y_pred_svm = regr_svm.predict(X_test)
 
-plt.plot(y_test)
-plt.plot(y_pred_svm)
+# plt.plot(y_test)
+# plt.plot(y_pred_svm)
 
 df['HighP1'] = df['P1'].apply(is_p1_high)
 
@@ -234,7 +236,7 @@ print(confusion_matrix(y_test,y_pred))
 
 print(classification_report(y_test, y_pred))
 
-today = [1, 100, 0, 6, 1]
+
 classifier.predict_proba([today])
 regr.predict([today])
 
@@ -246,20 +248,20 @@ classifier.feature_importances_
 
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
-
+today = [1, 100, 0, 6, 1]
 sc = StandardScaler()
 
 classifier_svc = SVC()
 
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
-
+today = sc.transfort([today])
 classifier_svc.fit(X_train, y_train)
 
 y_pred_svc = classifier_svc.predict(X_test)
 
 print(classification_report(y_test, y_pred_svc))
 
-classifier_svc.predict([today])
+classifier_svc.predict(today)
 
 
