@@ -95,7 +95,7 @@ def is_p1_high(x):
 def is_holiday(x):
     """ Returns if it is holiday if date is 3 days around a holiday"""
     for holiday in HOLIDAYS:
-        if (x >= holiday-datetime.timedelta(days=3)) and (x <= holiday+datetime.timedelta(days=3)):
+        if (x >= holiday-datetime.timedelta(days=3)) and (x <= holiday + datetime.timedelta(days=3)):
             return 1
         else:
             return 0
@@ -165,12 +165,25 @@ df['Season'] = df['timestamp'].apply(season)
 # Check if the P1 and P2 values are higher in any part of the day or if it is a holiday.
 
 mean_print_plot(df, category='IsHoliday', data_col1='P1', data_col2='P2')
+locs, ticks = plt.xticks()
+plt.xticks([locs[1], locs[-2]], ['Normal day', 'Holiday'])
 
 mean_print_plot(df, category='WeekDay', data_col1='P1', data_col2='P2')
+locs, ticks = plt.xticks()
+plt.xticks(locs, ['', 'Mon','Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', ''])
+
+df_blah = df.loc[df['PartDay']==6]
+mean_print_plot(df_blah, category='Season', data_col1='P1', data_col2 = 'P2')
 
 mean_print_plot(df, category='PartDay', data_col1='P1', data_col2='P2')
+locs, ticks = plt.xticks()
+plt.xticks(locs, [' ','Early Morning', 'Morning', 'Noon', 'Afternoon', 'Evening', 'Night', ''])
+
+
 
 mean_print_plot(df, category='Season', data_col1='P1', data_col2='P2')
+locs, ticks = plt.xticks()
+plt.xticks(locs[1:-1:2], ['Spring', 'Summer', 'Autumn', 'Winter'])
 
 # ### As we see there are correlations between the season, week day, time of day and holidays and the air quality. 
 # ##### I will now check with a seaborn correlation plot
@@ -190,12 +203,16 @@ from sklearn.preprocessing import StandardScaler
 
 X = df[['temperature', 'humidity', 'IsHoliday', 'WeekDay', 'Season']]
 y = df['P1']
+today = [12, 47, 0, 1, 1]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3)
 
 sc_regr = StandardScaler()
-X_train = sc_regr.fit_transform(sc_regr)
-X_test = sc_regr.transform(sc_regr)
+X_train = sc_regr.fit_transform(X_train)
+X_test = sc_regr.transform(X_test)
+
+
+today = sc_regr.transform([today])
 
 regr = RandomForestRegressor()
 regr_svm = SVR()
@@ -203,14 +220,33 @@ regr_svm = SVR()
 regr.fit(X_train, y_train)
 regr_svm.fit(X_train, y_train)
 
-regr.predict([today])
+regr.predict(today)
 
-regr_svm.predict([today])
+regr_svm.predict(today)
 
 y_pred_svm = regr_svm.predict(X_test)
 
-plt.plot(y_test)
-plt.plot(y_pred_svm)
+# Regression ANN:
+
+import tensorflow as tf
+
+ann_regr = tf.keras.models.Sequential()
+
+ann_regr.add(tf.keras.layers.Dense(units = 5, activation='relu'))
+ann_regr.add(tf.keras.layers.Dense(units = 8, activation='relu'))
+ann_regr.add(tf.keras.layers.Dense(units=1))
+
+ann_regr.compile(optimizer='adam', loss='mean_squared_error')
+
+ann_regr.fit(X, y, batch_size=64, epochs=100)
+
+y_pred = ann_regr.predict(X_test)
+
+print(y_test)
+
+ann_regr.predict(today)
+
+# Later training XGBoost
 
 df['HighP1'] = df['P1'].apply(is_p1_high)
 
@@ -221,6 +257,7 @@ from sklearn.ensemble import RandomForestClassifier
 y = df['HighP1']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3)
+today = [1, 100, 0, 6, 1]
 
 classifier = RandomForestClassifier()
 
@@ -234,7 +271,6 @@ print(confusion_matrix(y_test,y_pred))
 
 print(classification_report(y_test, y_pred))
 
-today = [1, 100, 0, 6, 1]
 classifier.predict_proba([today])
 regr.predict([today])
 
@@ -253,6 +289,7 @@ classifier_svc = SVC()
 
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
+today = sc.transform([today])
 
 classifier_svc.fit(X_train, y_train)
 
@@ -260,6 +297,31 @@ y_pred_svc = classifier_svc.predict(X_test)
 
 print(classification_report(y_test, y_pred_svc))
 
-classifier_svc.predict([today])
+classifier_svc.predict(today)
+
+# Now I will try with ANN regression/classification
+
+import tensorflow as tf
+
+ann = tf.keras.models.Sequential()
+
+ann.add(tf.keras.layers.Dense(units = 8, activation='relu'))
+ann.add(tf.keras.layers.Dense(units = 8, activation='relu'))
+
+ann.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
+
+ann.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+ann.fit(X_train, y_train, batch_size=64, epochs=100)
+
+y_pred = ann.predict(X_test)
+
+ann.predict(today)
+
+y_pred = (y_pred > 0.5)
+
+print(classification_report(y_test, y_pred))
+
+
 
 
