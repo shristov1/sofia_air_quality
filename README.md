@@ -6,6 +6,7 @@
 
 ### Libraries used:
 
+- tensorflow
 - scikit
 - numpy
 - pandas
