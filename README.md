@@ -6,6 +6,8 @@
 
 ### Libraries used:
 
+- weathercom
+- joblib
 - tensorflow
 - scikit
 - numpy
@@ -27,10 +29,12 @@ I decided to look at the data recorded by sensors.community community and analyz
 - Is there connection between air quality and weather
 
 ### Issues:
-- Would need to spend more time to clean up the regression analysis as it currently fails CI.  
+- not yet known
 
 ### Files in repo
 - visualization_and_data_analysis.ipynb - Jupyter notebook with the main portion of the work
+- weather_scraper_and_predict.ipynb - Jupyter notebook that loads the weather data and predicts based on the model trained
+- dataframe_wrangling.py - support functions for dataset preparation
 - download_climate_data.py - this contains functions that help with downloading the data
 - README.md - this readme for the project
 
@@ -42,7 +46,7 @@ I decided to look at the data recorded by sensors.community community and analyz
 
 More written analysis on Medium: https://shristov9.medium.com/when-is-sofia-breathing-the-worst-air-93e31a28e6ca 
 
-And also I would finish the regression and classification analysis on the data in due time. 
+And also I would finish the classification analysis on the data in due time. Regression is done and next step is to deploy on a cloud service. 
 
 ### Acknowledgment:
 - sensors.community
