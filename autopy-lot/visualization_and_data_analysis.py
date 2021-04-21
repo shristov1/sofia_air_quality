@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 from download_climate_data import download_data
 import os
 import datetime
+import weathercom
 
 
 # We are only interested in sensors with the following parameters: (sensor_name = sds011, sensor_id = 6127) and (sensor_name = bme280, sensor_id = 6128).
@@ -114,6 +115,7 @@ def is_holiday(x):
 # 25 & 26 December	Christmas Day  
 # Moveable	Orthodox Good Friday, Holy Saturday & Easter  
 
+# TODO: Automatically take it from G calendar API
 HOLIDAYS = [datetime.date(2020,4,19), datetime.date(2021,1,1), datetime.date(2021,3,3),datetime.date(2020,5,1),
             datetime.date(2020,5,6),datetime.date(2020,5,24),datetime.date(2020,9,6),
             datetime.date(2020,9,22),datetime.date(2020,12,24),datetime.date(2020,12,25),datetime.date(2020,12,26)]
@@ -322,6 +324,28 @@ y_pred = (y_pred > 0.5)
 
 print(classification_report(y_test, y_pred))
 
+data = weathercom.getCityWeatherDetails(city='Sofia',queryType="ten-days-data")
+df = pd.read_json(data)
+weather = pd.DataFrame()
+date = pd.DataFrame()
 
+weather['Temperature'] = df['vt1dailyForecast']['day']['temperature']
+weather['Humidity'] = df['vt1dailyForecast']['day']['humidityPct']
 
+date['Date'] = pd.to_datetime(df['vt1dailyForecast']['validDate'])
 
+weather['IsHoliday'] = date['Date'].apply(is_holiday)
+weather['Weekday'] = date['Date'].dt.dayofweek
+weather['Season'] = date['Date'].apply(season)
+
+weather = sc_regr.transform(weather)
+
+ann_regr.predict(weather)
+
+# Saving the model so it can be reused
+
+import joblib
+
+joblib.dump(sc_regr, 'std_scaler.bin', compress=True)
+
+ann_regr.save('ann_regr_weather.h5')
