@@ -1,4 +1,4 @@
-# sofia_air_quality
+# Air Quality in Sofia Regression and Prediction
 
 [![Python application](https://github.com/shristov1/sofia_air_quality/actions/workflows/python-app.yml/badge.svg)](https://github.com/shristov1/sofia_air_quality/actions/workflows/python-app.yml)
 
@@ -36,6 +36,8 @@ I decided to look at the data recorded by sensors.community community and analyz
 - weather_scraper_and_predict.ipynb - Jupyter notebook that loads the weather data and predicts based on the model trained
 - dataframe_wrangling.py - support functions for dataset preparation
 - download_climate_data.py - this contains functions that help with downloading the data
+- std_scaler.bin - standart scaler model
+- ann_regr_weather.h5 - ANN trained on historical weather, dates and PM 10 values
 - README.md - this readme for the project
 
 ### Findings:
