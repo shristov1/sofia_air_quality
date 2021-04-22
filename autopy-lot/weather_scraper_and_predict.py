@@ -17,7 +17,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tensorflow import keras
 model = keras.models.load_model('ann_regr_weather.h5')
-from FlaskApp.airqualityapp.dataframe_wrangling import is_holiday, is_workday, season
+from dataframe_wrangling import is_holiday, is_workday, season
 import datetime
 import joblib
 
@@ -53,5 +53,7 @@ plt.scatter(date['Date'], prediction)
 plt.grid()
 plt.xlabel('Date')
 plt.ylabel('PM 10')
+
+
 
 
