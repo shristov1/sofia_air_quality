@@ -344,7 +344,11 @@ ann_regr.predict(weather)
 
 # Saving the model so it can be reused
 
+regr_svm.predict(weather)
+
 import joblib
+
+joblib.dump(regr_svm, 'svm_regr.bin', compress=True)
 
 joblib.dump(sc_regr, 'std_scaler.bin', compress=True)
 
