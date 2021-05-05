@@ -4,6 +4,9 @@
 
 [![autopy-lot](https://github.com/shristov1/sofia_air_quality/actions/workflows/notebook_pyer.yml/badge.svg)](https://github.com/shristov1/sofia_air_quality/actions/workflows/notebook_pyer.yml)
 
+[![Build and deploy Python app to Azure Web App - sofiaair](https://github.com/shristov1/FlaskApp_SofiaAir/actions/workflows/master_sofiaair.yml/badge.svg)](https://github.com/shristov1/FlaskApp_SofiaAir/actions/workflows/master_sofiaair.yml)
+
+
 ### Libraries used:
 
 - weathercom
